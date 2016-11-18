@@ -2,6 +2,16 @@
 
 from __future__ import print_function
 
+class LinkedListIterator():
+    def __init__(self, linked_list):
+        self.current = linked_list.head
+        self.linked_list = linked_list
+
+    def next(self):
+        if(not self.current or not self.current.next):
+            raise StopIteration
+        else:
+            return self.current.next.data
 
 class Node(object):
 
@@ -24,6 +34,9 @@ class LinkedList(object):
         if iterable:
             for item in iterable:
                 self.append(item)
+
+    def __iter__(self):
+        return LinkedListIterator(self)
 
     def __repr__(self):
         """Return a string representation of this linked list"""
@@ -122,7 +135,6 @@ def test_linked_list():
     print('head: ' + str(ll.head))
     print('tail: ' + str(ll.tail))
     print(ll.length())
-
 
 if __name__ == '__main__':
     test_linked_list()
